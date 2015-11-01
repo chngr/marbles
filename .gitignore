@@ -1,0 +1,15 @@
+*.edg
+*.swp
+*.swx
+.DS_STORE
+*.o
+comb_separation
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.pdf
+*.pdfsync
+*.bbl
+*.blg
+*.out

@@ -1,0 +1,131 @@
+\documentclass{axolotl}
+\title{Topologies}
+\author{Raymond Cheng}
+\date{October 31, 2015}
+\begin{document}
+\maketitle
+Today, we will start off by recalling some of the basic definitions and results
+from topology and differential geometry, in preparation for a study of
+algebraic topology and the theory of Lie groups. Let's start off with the
+basics and see how we get.
+
+\epoint{Topological Spaces: Intuition}\label{10-31.1}
+Recall that a \textit{topological space} is, formally, a set \(X\) along with a
+collection \(\cT\), the \textit{topology} on \(X\), of subsets of \(X\)
+satisfying some axioms---here, I used ``collection'' in lieu of ``set'' because
+I detest the phrase ``set of subsets'' and derivatives thereof. I will get to
+the axioms in a moment. First a discussion. The elements of \(\cT\) are the
+\textit{open sets} of the topology. Intuitively, we think of open sets as
+telling us which points of \(x\) are ``close together''. The more open sets two
+points are in together, the ``closer'' we think they are together; that is, if
+two points \(x,y \in X\) are mutually in many open sets \(U \in \cT\) together,
+then we think of \(x,y\) as being very close together. This intuition is a bit
+limited; more accurately, we should think of an open set \(U \in \cT\) as being
+a set containing points of \(X\) such that, for each point \(x \in U\), some
+small \textit{neighbourhood}---the term neighbourhood is usually used to refer
+to some (open) set containing \(x\)---that are really close by to \(x\) is also
+contained in \(U\).
+
+The main example to keep in mind is \(X = \RR^n\)---or any other metric space,
+for that matter. Recall that the open sets \(U\) in \(X\) are those for which,
+if \(x \in U\), then there is some \(\epsilon > 0\) such that the set of all
+points \(B_\epsilon(x)\) that are distance less than \(\epsilon\) away, \[
+  B_\epsilon(x) \coloneqq \set{y \in X | \mathrm{dist}(x,y) < \epsilon}, \] is
+contained in \(U\): \(B_\epsilon(x) \subseteq U\). In the context of metric
+spaces, open sets are really manifesting the intuition stated above.
+
+\epoint{Axioms for a Topology}
+Alright, what sort of things should a topology satisfy? I will list them out
+without motivation first, and come back to discuss the content of each
+immediately afterward. As you are going through the axioms, think back to the
+example of a metric space and mentally check that each axiom is satisfied. For
+a collection \(\cT\) of subsets of \(X\) to be a topology on \(X\), \(\cT\)
+must satisfy the following properties:
+\begin{enumerate}
+  \item \(\cT\) is closed under \textit{arbitrary} unions: if \(U_\alpha \in
+      \cT\), \(\alpha \in A\), with the index set \(A\) of arbitrary cardinality,
+    then \(\bigcup_{\alpha \in A} U_\alpha \in \cT\);
+  \item \(\cT\) is closed under \textit{finite} intersections: if
+    \(U_1,\ldots,U_n \in \cT\), then \(U_1 \cap \cdots \cap U_n \in \cT\);
+  \item \(\cT\) contains \(\varnothing\) and \(X\).
+\end{enumerate}
+Arbitrary unions of opens should be open because when you are making a set
+bigger, you do not destroy the property that if you take a point in the open
+set, then some set of nearby points is back in the open set. On the other hand,
+if you take intersections, you make the set smaller. Any finite process should
+not remove very close points, but an infinite process may very well do
+so---think of intersecting the open balls \(B_{1/n}(x)\) in a metric space, as
+\(n\) ranges over the positive integers. Finally, the last axiom should be
+thought of as a nontriviality state, or else one that is almost forced by the
+other two for consistency's sake. There is intuitive content in both: since
+\(X\) is everything, certainly there is a neighbourhood of every point back in
+\(X\); since \(\varnothing\) contains no points, the statements are vacuously
+true.
+
+\epoint{Other Notions in Topological Spaces}
+Besides open sets, there are other notions that are commonly used in
+topological spaces:
+\begin{enumerate}
+  \item \textit{Closed sets}: a set \(F \subseteq X\) is closed if it is the
+    complement of an open set, i.e. there is some open set \(U \subseteq X\)
+    such that \(F = X \setminus U\);
+  \item \textit{Closure of a set}: Let \(S \subseteq X\) be an arbitrary subset---it need not
+    be open nor closed---then the \textit{closure} of \(S\) is the smallest closed
+    set \(\overline S \subseteq X\) containing \(S\); this may be constructed by
+    taking the intersection over all closed sets containing \(S\);
+  \item \textit{Interior of a set}: Let \(S \subseteq X\) be an arbitrary subset, then
+    the \textit{interior} of \(S\) is the largest open set \(S^\circ \subseteq X\)
+    contained in \(S\); this may be constructed by taking the union of all
+    open sets contained in \(S\);
+  \item \textit{Boundary of a set}: Let \(S \subseteq X\) be arbitrary, then
+    the \textit{boundary} of \(S\) is the intersection of the closure of \(S\)
+    with the closure of its complement \(\partial S \coloneqq \overline S \cap
+      \overline{(X \setminus S)}\).
+\end{enumerate}
+These are the main other sets that are useful right now. Think about what each
+object is back in a metric space and you will get a good intuitive feel for what
+they are.
+
+\epoint{Generating Topologies}\label{10-31.2}
+One last thing for today. How are we going to specify a topology on a set
+\(X\)? Sure, we can write down a bunch of subsets of \(X\) and declare those
+open sets. But then we would have to painstakingly check that the axioms of a
+topological space are satisfied. Moreover, there may be some open sets that are
+very difficult to specify precisely.
+
+But here's an idea: we can write down some collection of subsets of \(X\) and
+then declare that these somehow ``generate'' a topology on \(X\). The intuitive
+way of doing this is, well, throw in all those subsets of \(X\) for which should
+be in this set for it to be a topology and then declare the expanded set to be
+the topology. There are two ways about this.
+
+First, we can specify a collection \(\cB\) of subsets of \(X\) which satisfy
+at least the finite axioms. That is, consider a collection \(\cB\) of subsets
+of \(X\) which
+\begin{enumerate}
+  \item is closed under finite intersections;
+  \item contains \(\varnothing\) and \(X\).
+\end{enumerate}
+Then we can define a topology on \(X\) by taking \(\cT\) to consist of the
+elements of \(\cB\) along with arbitrary unions of elements of \(\cB\):
+\[ \cT \coloneqq \Set{U \subseteq X | U = \bigcup_\alpha U_\alpha, U_\alpha \in \cB}. \]
+The set \(\cB\) is called a \textit{base} for the topology \(\cT\).
+
+A second method we can specify a basis is via a subbasis. Consider a collection
+\(\sS\) of subsets of \(X\) which we only demand to contain \(\varnothing\) and
+\(X\). This is almost like a base, but we are missing the finite intersection closure.
+So we proceed as before: we first take all finite intersections of elements in \(\sS\)
+to obtain a new collection \(\cB coloneqq \Set{U \subseteq X | U = U_1 \cap
+    \cdots U_n, U_i \in \sS}\). Then we take \(\cB\) as a base of a topology
+\(\cT\) on \(X\). In this case, \(\sS\) is said to be a \textit{subbasis} for
+the topology \(\cT\).
+
+\epoint{Example: Metric Spaces}
+Let's work in a metric space \(X\)---you may well think \(X = \RR^n\) throughout.
+A basis for the topology of \(X\) is the collection of open balls
+\[ \cB \coloneqq \set{B_\epsilon(x) \subseteq X | x \in X, \epsilon > 0}. \]
+For an example of a subbasis, consider the even more specific example of \(X = \RR\).
+Then the set
+\[ \sS \coloneqq \set{(a,\infty) | a \in \RR} \cup \set{(-\infty,b) | b \in \RR} \]
+consisting of open rays is a subbasis for the usual topology on \(X\).
+\end{document}
