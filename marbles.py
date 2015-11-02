@@ -56,19 +56,12 @@ def new_article(log):
   log.add_entry()
 
 def compile_tex(log, everything=False):
-  if everything:
-    error = os.system("pdflatex src/*.tex")
-    if error:
-      raise Exception("Catastrophe occurred when compiling everything. Run.\n")
-    else:
-      for entry in range(log.current_entry + 1):
-        log.log[entry]["compiled"] = True
-  else:
-    error = os.system("pdflatex src/{}.tex".format(log.today))
-    if error:
-      raise Exception("Something bad happened when compiling today's issue.\n")
-    else:
-      log.log[log.current_entry]["compiled"] = True
+  for entry in log.log:
+    if not entry["compiled"] or everything:
+      error = os.system("pdflatex src/{}.tex".format(entry["date"]))
+      if error:
+        raise Exception("Catastrophe occurred when compiling everything. Run.\n")
+      entry["compiled"] = True
   os.system("rm *.out *.aux *.log *.pdfsync *.fls *.fdb_latexmk")
   os.system("mv *.pdf pdf/")
 
