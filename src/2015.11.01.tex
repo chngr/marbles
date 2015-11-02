@@ -1,0 +1,171 @@
+\documentclass{axolotl}
+\title{Topological and Smooth Manifolds}
+\author{Raymond Cheng}
+\date{2015.11.01}
+\begin{document}
+\maketitle
+Yesterday, we recalled the notion of a topological space. But general
+topological spaces can be quite wildly behaved, and your intuition from metric
+spaces can lead you far astray. Although this is not a good reason to avoid the
+study of general point-set topology, it is at least a deterrent for when we are
+not necessarily interested in dealing with pathologies quite yet. We will cross
+that bridge when we need to sometime in the future. Rather, let's deal with a
+particularly nice class of topological spaces: topological manifolds.
+
+\epoint{Hausdorff Axiom}
+Before delving into a discussion of topological manifolds, I should probably
+talk about the notion of a Hausdorff topology. The Hausdorff axiom intuitively
+says that any two points in the space are separated from one another: think
+about two different points in the space, then if they are to be separated, then
+there should be some small neighbourhood around each of the points such that
+the neighbourhoods are disjoint from one another. If that is not true, then
+these points are somehow always very close to one another; they can not be
+viewed completely apart from one another.
+
+More formally, let \(X\) be a topological space. We say that the topology on
+\(X\) is \textit{Hausdorff} if for every pair of distinct points \(x,y \in X\),
+there are open sets \(U,V \subseteq X\) such that \(x \in U\) and \(y \in V\)
+and which are disjoint: \(U \cap V = \varnothing\). The Hausdorff condition on
+a topology is one example of a \textit{separation axiom}. There are a family of
+separation axioms, labelled from T0 to T8 or something---there are some
+fractional ones in between---and the Hausdroff one is T2 in that list.
+
+\epoint{Continuous Maps}
+We should also talk about what sort of functions we want to consider between
+topological spaces. A topology is an abstract way of formulating the notion of
+closeness in a space. Thus, a map between topological spaces should be one
+which preserves, to some degree at least, the property of two points being
+close to one another. Such maps will be called \textit{continuous maps}.
+
+Let \(f: X \to Y\) be a function between two topological spaces. From the
+brief discussion before, we need \(f\) to respect the open sets in \(X\) and
+\(Y\) in some way. What should this relation relation between open sets be? At
+first glance, perhaps we need that \(f\) maps open sets to open sets. That,
+however, is not quite what we want: a continuous function should map nearby
+points to nearby points, but one thing it can do as well would be map
+everything so close to one another that they all become the same. In this case,
+nearby points are indeed mapped close by, just too close to tell apart, and
+thus not necessarily forming an open set.
+
+On the other hand, if we take a look at points that are near one another in
+\(Y\), then for \(f\) to be continuous, they must have come from points in
+\(X\) that are close to one another---or simply not have come from \(X\) at
+all. In other words, this suggests that the right formulation of continuity
+is the following:
+\begin{quote}
+  \(f\) is \textit{continuous} if for every open set \(V \subseteq Y\), \(f^{-1}(V)
+    \subseteq X\) is open in \(X\).
+\end{quote}
+Wait a minute, here we are defining continuity between topological spaces when
+we already have a notion of continuity of functions in metric spaces. Recall
+that a function \(f: X \to Y\) between two metric spaces is said to be
+continuous if for every \(x \in X\) and every \(\epsilon > 0\), there is some
+\(\delta > 0\) such that whenever \(d_X(x,x') < \delta\), then
+\(d_Y(f(x),f(x')) < \epsilon\). It is annoying, though not difficult, to check
+that these two definitions of continuity coincide. You should do this check.
+
+\epoint{Homeomorphisms}
+Now that we have functions between topological spaces, we can ask when a function
+should constitute a sort of isomorphism between spaces. As per usual, an isomorphism
+of topological spaces---typically called a \textit{homeomorphism}---should be a
+continuous map \(f: X \to Y\) which admits an inverse \(f^{-1}: Y \to X\). This
+means that a homeomorphism is bijective. Also, we want to the inverse to be a map
+of topological spaces, i.e. the inverse is also continuous.
+
+Naturally, we wonder whether or not it is enough to ask for \(f: X \to Y\) to
+be continuous and bijective. Well, unfortunately, there are continuous
+bijections whose inverse is not continuous. I encourage you to look for an
+example. Perhaps looking at rather trivial topologies would give you a simple
+example. Otherwise, I think---I am not completely sure right now---there is an
+example of such a map between subsets of \(\RR\).
+
+\epoint{Definition of a topological manifold}
+Finally, we can come to discuss the notion of a topological manifold! Roughly
+speaking, a topological manifold is a topological space that locally looks like
+euclidean space \(\RR^n\). More precisely, a topological manifold should be a
+topological space \(X\) such that for every \(x \in X\), there is an open set
+\(U \subseteq X\) containing \(x\) such that \(U\) is homeomorphic to an open
+subset of \(\RR^n\), for some positive integer \(n\). The integer \(n\) is
+called the \textit{dimension} of \(X\)---note that we have not shown that \(n\)
+is independent of the choice of homeomorphism, but we are going to assume that
+it is.
+
+If only the definition were so simple. To ensure that we are working with
+sensible spaces, we are going to impose two more technical conditions on the
+definition of a topological manifold. First, we are going to demand that \(X\)
+is Hausdorff. Second, we are going to ask for \(X\) to be \textit{second
+  countable}, that is, that \(X\) posses a countable base \(\cB\) for its
+topology. For instance, \(\RR^n\) is second countable because a countable base
+for its usual topology is
+\[ \cB \coloneqq \set{B_{\frac{1}{k}}(x) | x \in \QQ^n, k \in \ZZ_{> 0}}. \]
+Both these technical restrictions are so that topological manifolds are
+reasonable spaces, with no strange separation problems and so that they are not
+too big. Morally, a topological manifold should be a reasonable topological
+space which looks locally like \(\RR^n\).
+
+Let me formulate the ``looks locally like \(\RR^n\)'' in a manner that will
+be suited for generalization. For a reasonable topological space \(X\) to be a
+topological manifold, we require that there is an open cover \(\sU \coloneqq
+  \{U_\alpha\}_\alpha\) of \(X\) such that for each \(\alpha\), there is a
+homeomorphism \(\varphi_\alpha: U_\alpha \cong \RR^n\)---since open subsets of
+\(\RR^n\) are homeomorphic to the whole space, we may as well take the
+homeomorphism to the entire space. A pair \((U_\alpha,\varphi_\alpha)\) is
+called a \textit{topological chart} for \(X\) and the set of all charts
+\(\{U_\alpha,\varphi_\alpha\}_\alpha\) is called a \textit{topological atlas}
+for \(X\).
+
+\epoint{Smooth Manifolds}
+Other classes of manifolds differ from a topological manifold in that we
+are looking at different model spaces. A topological manifold only demands that
+the manifold is topologically the same as \(\RR^n\) locally---in particular,
+topological manifolds do not care about the analytic structure on \(\RR^n\). In
+contrast, \textit{smooth} manifolds are topological manifolds that do care
+about the analytic structure. This additional structure found in a smooth
+manifold is encoded in demanding more of the atlas. How might this go?
+
+Well, the difference between a smooth manifold and a topological manifold should
+be that we can understand what a smooth map between smooth manifolds are. That
+is, we should be able to make sense the statement ``\(f: M \to N\) is a smooth
+map'', where \(M\) and \(N\) are smooth manifolds. We can at least make sense
+smoothness locally: by precomposing \(f\) with the inverse of a chart
+\(\varphi_\alpha^{-1}\) for \(M\) and postcomposing \(f\) with a chart
+\(\psi_\beta\) for \(N\), we can view \(f\), locally, as a function between two
+euclidean spaces:
+\[ \psi_\beta\circ f \circ \varphi^{-1}_\alpha: \RR^m \xrightarrow{\sim} U_\alpha \subseteq M \rightarrow V_\beta \xrightarrow{\sim} \RR^n, \]
+where \(V_\beta \subseteq N\) is assumed to contain the image of \(U_\alpha\)
+under \(f\). Since this is a map between two euclidean spaces, we can make
+sense of smoothness. Then we say that \(f: M \to N\), as a map between
+manifolds, is smooth when all the \(\psi_\beta \circ f \circ \varphi_\alpha\)
+are smooth.
+
+Okay, what sort of maps should be smooth? A map that certainly should be smooth
+is the identity map \(\id: M \to M\). What does the smoothness condition mean
+here? Well, consider two charts \((U_\alpha,\varphi_\alpha)\) and
+\((U_\beta,\varphi_\beta)\) and suppose that \(U_{\alpha\beta} \coloneqq
+  U_\alpha \cap U_\beta \neq \varnothing\). Then when we do the above
+construction, we obtain a map
+\[ \varphi_{\alpha\beta} \coloneqq \varphi_\beta \circ \id \circ \varphi_\alpha^{-1}: \RR^n \xrightarrow{\sim} U_{\alpha\beta} \xrightarrow{\id} U_{\alpha\beta} \xrightarrow{\sim} \RR^n \]
+which is to be smooth. This tells us that, in order to make sense of smooth
+maps between topological manifolds, we demand that these \textit{transition
+  functions} \(\varphi_{\alpha\beta}\), obtained by composing two charts, must
+be smooth functions between euclidean spaces! And indeed, this makes sense. If
+we think of charts as putting local coordinates on the manifold, then these
+transition functions are changes of coordinates. In order to preserve the
+smooth structure of a smooth manifold, all changes of coordinates should be
+smooth.
+
+Seeing this, we arrive at the definition of a smooth manifold. A smooth
+manifold is a topological manifold \(X\) with a topological atlas
+\(\{U_\alpha,\varphi_\alpha\}\) such that each of the transition functions
+\(\varphi_{\alpha\beta} \coloneqq \varphi_\beta\circ\varphi_\alpha^{-1}\), when
+examined on a domain where they make sense, are smooth functions. In order to
+avoid annoying technical issues, we usually say that a smooth manifold consists
+of a topological manifold along with a maximal smooth atlas on \(X\); because
+this is a formal issue, we will not bother formulating this precisely.
+
+Finally, let us mention when two smooth manifolds are to be considered
+isomorphic. Naturally, an isomorphism between smooth manifolds \(M\) and \(N\)
+will be a homeomorphism \(f: M \to N\) which is smooth and for which the
+inverse \(f^{-1}: N \to M\) is smooth. In that case, we say that \(f\) is a
+\textit{diffeomorphism} and that \(M\) and \(N\) are diffeomorphic.
+\end{document}

@@ -69,11 +69,14 @@ def compile_tex(log, everything=False):
       raise Exception("Something bad happened when compiling today's issue.\n")
     else:
       log.log[log.current_entry]["compiled"] = True
-  os.system("rm *.out *.aux *.log *.pdfsync")
+  os.system("rm *.out *.aux *.log *.pdfsync *.fls *.fdb_latexmk")
   os.system("mv *.pdf pdf/")
 
 def clean():
-  os.system("rm *.aux *.log *.out *.pdfsync pdf/*")
+  os.system("rm *.aux *.log *.out *.pdfsync *.fls *.fdb_latexmk pdf/*")
+
+def clean_src():
+  os.system("rm src/*.aux src/*.log src/*.out src/*.pdfsync src/*.fls src/*.pdf src/*.fdb_latexmk")
 
 if __name__ == "__main__":
 
@@ -92,7 +95,9 @@ if __name__ == "__main__":
     new_article(log)
   if args.compile:
     compile_tex(log,everything=args.compile=="all")
+    clean_src()
   if args.clean:
     clean()
+    clean_src()
 
   log.write_log()
