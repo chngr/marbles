@@ -41,7 +41,7 @@ class Log(object):
   def write_log(self):
     with open("Logfile", "w") as log:
       log.write(self.header)
-      for i in range(self.current_entry + 1):
+      for i in range(self.current_entry):
         entry = self.log[i]
         log.write("{},{},{},{}\n".format(i, entry["date"], entry["compiled"], entry["sent"]))
 

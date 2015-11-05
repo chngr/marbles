@@ -1,0 +1,124 @@
+\documentclass{axolotl}
+\title{Homotopy}
+\author{Raymond Cheng}
+\date{November 2, 2015}
+\begin{document}
+\maketitle
+Yesterday, we talked about topological manifolds and also mentioned smooth
+manifolds at the end. Before talking more about smooth manifolds, on which
+analytic techniques give a rich theory, let look a little into the theory of
+general topological spaces, with an emphasis on understanding topological
+manifolds---I sort of pretend that the only topological spaces out there are
+topological manifolds and hide my head in a hole when pathological topologies
+spring about.
+
+We shall discuss a fundamental notion in topology, that of homotopy. The idea
+simple: imagine a curve in space and consider deforming the curve in a
+continuous fashion so that the end points remain fixed. This is the geometric
+picture you should have in your head when thinking about homotopy. But let
+us make this more precise.
+
+\epoint{Homotopy of Curves}
+Okay, so what is homotopy supposed to be? It needs to formalize the idea of
+deforming a space in a continuous manner in a topological space. Okay, well let
+us consider how we might formalize this for a curve \(\gamma\) in a topological
+space \(X\). Parameterizing \(\gamma\) by the unit interval \(I \coloneqq [0,1]\), we can think of
+the curve as a continuous map \(\gamma: I \to X\). Now suppose that we can
+deform \(\gamma\) into another curve \(\gamma'\) in \(X\) in some continuous
+manner. Well, for that to happen, you should be able to show me a way to bend
+\(\gamma\) continuously to obtain \(\gamma'\); put differently, we should able
+to film a time-lapse such that at time \(t = 0\), we see an image of \(\gamma\)
+and as \(t\) tends to \(1\), the image changes continuously so that at \(t =
+  1\) we see \(\gamma'\).
+
+This suggests that we define a \emph{homotopy from \(\gamma\) to \(\gamma'\)}
+as a function
+\[ H(s,t): [0,1] \times I \to X \]
+which is continuous in its argument \(t\)---think of time as continuously
+moving along---and for each fixed time \(t\), the function
+\[ H_t(s) \coloneqq H(t,s): I \to X \]
+is a continuous function in the argument \(s\)---at each time, the curve that
+we see should be continuous. Also, to be a homotopy \textit{from} \(\gamma\)
+\textit{to} \(\gamma'\), we would want that
+\[ H_0(s) = \gamma \qquad\text{and}\qquad H_1(s) = \gamma' \]
+as continuous functions from \(I\) to \(X\).
+
+\epoint{Homotopy More Generally}
+Notice that there was nothing special about the domain \(I\) used in the
+definition of homotopy: we can very well consider homotopies between continuous
+functions \(\gamma: I \to X\) and \(\gamma': I \to X\) where \(I\) is now an
+arbitrary topological space. Just so that the notation is not too misleading
+later on, let us switch from using \(\gamma\) and \(\gamma'\) to the more general
+\(f\) and \(g\) in referencing continuous functions from \(I\) to \(X\).
+
+With this notation, a \textit{homotopy} between continuous functions \(f: I \to X\)
+and \(g: I \to X\) is a map
+\[ H: [0,1] \times I \to X \]
+such that the maps
+\[ H_t(s) \coloneqq H(t,s): I \to X \]
+are continuous functions for each fixed \(t \in [0,1]\) and that \(H\) starts at
+\(f\) and ends at \(g\),
+\[ H_0(s) = f(s) \qquad\text{and}\qquad H_1(s) = g(s). \]
+
+\epoint{Main Example of Homotopy}
+Homotopy amounts to deforming a beginning map \(f: I \to X\) to an ending map
+\(g: I \to X\) in some continuous fashion within the space \(X\). If \(X\) is
+nice enough, there is one easy way in which we can change \(f\) to \(g\)
+continuously: we simply linearly interpolate all the intermediate values. More
+precisely, for each \(s \in I\), think of drawing a line \(\ell_s\) in \(X\) from the point
+\(f(s)\) to \(g(s)\). We can then parameterize \(\ell_s\) by the unit interval
+\([0,1]\) and define a homotopy by traversing this line at a constant speed to
+get from \(f\) at \(t = 0\) to \(g\) at \(t = 1\). I would draw a picture here,
+but that is difficult in \LaTeX---ask me to do when you see me! More formally,
+we can define a homotopy \(H: [0,1] \times I \to X\) by
+\[ H(t,s) \coloneqq (1 - t)\,f(s) + t\, g(s). \]
+Let's check that this is indeed a homotopy from \(f\) to \(g\):
+\begin{enumerate}
+  \item For each fixed \(t \in [0,1]\), \(H_t(s) = (1 - t)\,f(s) + t\, g(s)\) is
+    the sum of continuous functions and thus is continuous;
+  \item At \(t = 0\), \(H_0(s) = f(s)\);
+  \item At \(t = 1\), \(H_1(s) = g(s)\).
+\end{enumerate}
+
+\epoint{Everything is Homotopic in \(\RR^n\)}
+As an application of the example above, we can show that every continuous map
+\(f: I \to \RR^n\) is homotopic to every other continuous map. It suffices to
+show that \(f\) is homotopic to the constant map \(\hat 0: I \to \RR^n\), where
+\[ \hat 0(s) \coloneqq 0 \in \RR^n \qquad\text{for every \(s \in I\)}. \]
+Indeed, this is because ``being homotopic to'' is an equivalence relation,
+something that we shall show later.
+
+Anyway, given a continuous function \(f: I \to X\), a homotopy to the constant
+map is constructed by directly using the construction above: consider \(H:
+  [0,1] \times I \to X\) given by
+\[ H(t,s) \coloneqq (1-t)\,f(s). \]
+This is a homotopy which begins at \(f\) and ends at \(\hat 0\).
+
+\epoint{Homotopy is not Trivial in \(\RR^2 - \{0\}\)}
+The previous example suggests that homotopy is sort of trivial: we can mash
+everything into a constant map in \(\RR^n\). But this is because there is so
+much open space with no strange punctures in \(\RR^n\). This is not the case in
+the punctured real plane \(X \coloneqq \RR^2 - \{0\}\). If we think about it for
+a moment, if we start off with a circle around the origin, then we cannot deform
+the circle to a point \textit{while remaining completely inside \(X\)} and
+\textit{without cutting the circle}. As a physical picture, think of the
+puncture in the plane as coming from a rod from some higher dimension ramming
+through the origin. Then think of a circle around the origin as a rubber band
+that is encircling the rod. Then there is no way to squish the rubber band so
+that it gets squished into a ball with nothing between its ends. This expresses
+the fact that a circle is not homotopic to a point in \(X\).
+
+Let's prove that the circle is not homotopic to a point. Suppose for sake of
+contradiction that the circle \(\bS^1\) in \(X\) were homotopic to a point \(p
+  \in X\). Without loss of generality, assume \(\bS^1 = \set{(x,y) \in X | x^2
+    + y^2 = 1}\) and \(p = (1,0)\). If there were a homotopy from \(\bS^1\) to
+\(p\), we can consider what happens to the subset \(R\) of \(\bS^1\) that is
+left of the \(y\)-axis. Since \(p\) is right of the \(y\)-axis and homotopies
+are continuous, the Intermediate Value Theorem implies that, each point of
+\(R\) must cross the \(y\)-axis at some time and point. Since there are points
+of \(R\) that are both above and below the \(x\)-axis, there will be some
+points which cross the \(y\)-axis from above and below the \(x\)-axis. But by
+continuity, this means that some point must go through the origin during this
+homotopy. But this is impossible! There is no origin in \(X\)! Thus no homotopy
+between \(\bS^1\) and \(p\) can exist.
+\end{document}

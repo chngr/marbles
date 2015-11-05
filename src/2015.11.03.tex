@@ -1,0 +1,122 @@
+\documentclass{axolotl}
+\title{Homotopy as Equivalence Relation and \(\pi_1\)}
+\author{Raymond Cheng}
+\date{November 3, 2015}
+\begin{document}
+\maketitle
+
+\epoint{Homotopy is an Equivalence Relation}
+The statement in the title is so fundamental to much of topology that I am going
+to repeat it as the section title here. The intuitively clear statement that
+homotopy does define an equivalence class is indeed true, and a little effort
+will be required to show this is the case formally. This exercise hopefully
+enlightens how homotopy works, so I will be reasonably thorough with this.
+Recall that an equivalence relation on a set \(X\) is a relation \(\sim\) such
+that
+\begin{itemize}
+  \item \textbf{Reflexivity.} For all \(x \in X\), \(x \sim x\);
+  \item \textbf{Symmetry.} If \(x \sim y\), then \(y \sim x\) for all \(x,y \in X\);
+  \item \textbf{Transitivity.} If \(x \sim y\) and \(y \sim z\), then \(x \sim z\), for all
+    \(x,y,z \in X\).
+\end{itemize}
+Let's show that the relation \(\sim\) such that, for continuous maps \(f,g: I \to X\),
+\begin{equation*}
+  f \sim g \iff \text{\(f\) is homotopic to \(g\)}
+\end{equation*}
+is an equivalence relation. This is fairly simple:
+\begin{itemize}
+  \item For \(f: I \to X\), then a homotopy from \(f\) to \(f\) is the constant
+    homotopy: \(H: I \times [0,1] \to X\) defined to be \(H_t = f\) for all
+    \(t \in [0,1]\);
+  \item For \(f: I \to X\) and \(g: I \to X\) homotopic, that is, there is a
+    homotopy \(H\) such that \(H_0 = f\) and \(H_1 = g\); now define \(H': I \times [0,1] \to X\)
+    by
+    \[ H'(s,t) \coloneqq H(s,1-t), \]
+    i.e. we reverse the homotopy in time;
+  \item For \(f, g, h: I \to X\) three continuous maps with a homotopy \(H: I \times [0,1] \to X\)
+    between \(f\) and \(g\), and a homotopy \(H': I \times [0,1] \to X\), then
+    a homotopy \(H'': I \times [0,1] \to X\) between \(f\) and \(h\) is obtained
+    by first running \(H\) at twice the speed, then running \(H'\) at twice the speed
+    right after:
+    \[ H''(s,t) \coloneqq \begin{dcases}
+        H(s,2t) & t \in \left[0,\frac{1}{2}\right], \\
+        H'\left(s,\frac{2t - 1}{2}\right) & t \in \left[\frac{1}{2},1\right].
+      \end{dcases}
+    \]
+\end{itemize}
+To make sense of the above, draw a picture! Or ask me to draw a picture!
+Hopefully this is all pretty intuitive, though!
+
+\epoint{Fundamental Group: Intuitively}
+The reason why we will want to make sure that homotopy is an equivalence
+relation is so that we can speak of homotopy equivalence classes. This is
+needed to construct the fundamental group of a space. Roughly speaking, the
+fundamental group \(\pi_1(X)\) of a space \(X\) looks at all the loops in the
+space---to be precise, we will want to look at loops based at some point \(x_0
+  \in X\), but we will burn this bridge when we cross it. The aim in looking
+at all the loops is that this should somehow measure whether or not there are
+``holes'' in the space. Indeed, recall from yesterday that \(\RR^n\) is contractible.
+In particular, we say that all loops, say based at the origin, may be homotoped
+to a single point. Thus the homotopy classes of loops in \(\RR^n\) is trivial,
+and has a single class with representative the constant loop.
+
+On the other hand, we saw that the circle is \emph{not} homotopic to a point in
+the punctured plane \(X \coloneqq \RR^2 - \{0\}\). This means that there is
+a nontrivial loop in \(X\), so the homotopy classes of loops in \(X\) has more
+than the class of the constant loop. We think of the non-triviality of this set
+as indicating the presence of a ``hole'' in the space; it is detecting the fact
+that we took out the origin in \(\RR^2\).
+
+\epoint{Fundamental Group: Definition}
+Let us define the \emph{fundamental group} \(\pi_1(X,x)\) of a space \(X\) with
+base point \(x \in X\). First define
+\[ \Omega(X,x) \coloneqq \set{\gamma: [0,1] \to X | \text{\(\gamma\) is continuous and \(\gamma(0) = x\), \(\gamma(1) = x\)}} \]
+as the set of loops in \(X\) based at \(x\). Then, the set underlying
+\(\pi_1(X,x)\) is the set of equivalence classes \(\Omega(X,x)/\sim\) of loops
+in \(\Omega(X,x)\), with two loops being equivalent if and only if they are
+homotopic.
+
+We say that \(\pi_1(X,x)\) is a group, suggesting that we have some sort of
+multiplication on \(\pi_1\). Intuitively, the multiplication is simply concatenation
+of paths. More formally, for \(f,g: [0,1] \to X\) loops representing equivalence
+classes in \(\pi_1(X,x)\), define the product \(f \star g: [0,1] \to X\) as the
+path
+\[ (f \star g)(t) \coloneqq \begin{dcases}
+    f(2t) & t \in \left[0,\frac{1}{2}\right], \\
+    g(2t - 1) & t \in \left[\frac{1}{2},1\right],
+  \end{dcases}
+\]
+which is that we go along \(f\) at twice the speed, then we go along \(g\) at
+twice the speed.
+
+We should check that this product actually satisfies the group axioms. This is
+also a good time to remind you what those axioms are.
+\begin{itemize}
+  \item \textbf{Identity.} There is an identity for this product, given by the
+    constant path \(x: [0,1] \to X\), \(x(t) \coloneqq x\) for all \(t\). If
+    \(f: [0,1] \to X\) is a loop in \(\Omega(X,x)\), then a homotopy \(H: [0,1]
+      \times [0,1] \to X\) between \(x \star f: [0,1] \to X\) is
+    \[ H(s,t) \coloneqq (x \star f)\left(\frac{t}{2} + \frac{(2 - t)s}{2}\right). \]
+    The idea of this homotopy is that at \(t = 1\), we need to start the loop after
+    the half way point, that is, after the transition from \(x\) to \(f\). The
+    fact that \(x\) is a right identity also comes from a similar homotopy.
+  \item \textbf{Inverses.} Inverses for the product may be obtained by concatenating
+    a loop \(f: [0,1] \to X\) with its reverse loop, \(\tilde f: [0,1] \to X\),
+    \[ \tilde f(t) \coloneqq f(1 -t), \]
+    obtained from \(t\) by running time backwards. To see that the product
+    \(f \star \tilde f\) is homotopic to the identity, consider a homotopy
+    defined as
+    \[ H(s,t) \coloneqq \begin{dcases}
+        x & s \in \left[0,\frac{t}{2}\right], \\
+        (f \star \tilde f)(2s - t) & s \in \left[\frac{t}{2}, 1 - \frac{t}{2}\right], \\
+        x & s \in \left[1 - \frac{t}{2},1\right].
+      \end{dcases}
+    \]
+    Ask me to draw a picture for this one. I would not get it otherwise either.
+  \item \textbf{Associativity.} There is one last thing we need to check. If
+    we have three loops \(f,g,h: [0,1] \to X\), then we need
+    \[ (f \star g) \star h = f \star (g \star h). \]
+    This shouldn't be too hard to see how this is done, but you can ask me for
+    a picture for this one too.
+\end{itemize}
+\end{document}
