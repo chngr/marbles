@@ -1,0 +1,104 @@
+\documentclass{axolotl}
+\title{Fundamental Groups and some Properties}
+\author{Raymond Cheng}
+\date{November 4, 2015}
+\begin{document}
+\maketitle
+\epoint{Fundamental Group of a Circle}
+Yesterday, we defined the fundamental group \(\pi_1(X,x)\) of a topological
+space \(X\) with respect to the base point \(x \in X\). Its definition is
+pretty simple: as a set, it consists of all homotopy classes of curves in \(X\)
+starting and ending at \(x\), and the product of two such curves is simply
+concatenation of the curves. Despite the simple definition---or perhaps due to
+the simple definition---the computation of these groups is ordinarily quite
+difficult. Indeed, really the only case in which the fundamental group is simple
+to compute is when \(\pi_1(X,x)\) is trivial. The next easiest case is when
+\(X = \bS^1\) is the circle, in which case
+\[ \pi_1(\bS^1,x) \cong \ZZ, \]
+where the isomorphism can be constructed by sending the homotopy class of the
+loop \(\gamma: t \mapsto e^{2\pi it}\)---here, I am thinking of \(\bS^1\) as
+the unit circle centred at the origin embedded in \(\CC\)---to the element \(1
+  \in \ZZ\). Intuitively, this makes sense: the circle does geometrically have
+a hole and that is what the unit element detects. The fact that the loops
+obtained by concatenating \(\gamma\) together give other nontrivial loops is
+not all too surprising either: when you wind a string around a ring, you can
+certainly tell how many times you wound around. A formal proof of this is a bit
+delicate, and perhaps I will return to proving this in the near future. For
+now, let's take this on faith, justified by intuitive soundness.
+
+\epoint{Fundamental Group of a Product}
+Let \(X\) and \(Y\) be topological spaces and consider the product space
+\[ X \times Y \coloneqq \set{(x,y) | x \in X, y \in Y}, \]
+and where the topology on \(X \times Y\) has a base given by
+\[ \cB \coloneqq \set{U \times V | \text{\(U\) is open in \(X\) and \(V\) is open in \(Y\)}}, \]
+i.e. the open sets in the product \(X \times Y\) are unions of products of open
+sets from either component. If we define things as such, it appears as if we are
+just putting the spaces together---well, something closer to putting a copy of \(X\)
+along every point of \(Y\)---and other than that, there is not much interaction
+between the two. Thus we might hope that any curve in the product \(X \times Y\)
+may be ``separated'' into a product of a curve in \(X\) and then a curve in \(Y\).
+
+Indeed, if we think about it a little, suppose that we have a curve \(\gamma:
+  [0,1] \to X \times Y\). We can write out the components of \(\gamma\):
+\[ \gamma(s) = (\xi(s),\eta(s)) \]
+for curves \(\xi: [0,1] \to X\) and \(\eta: [0,1] \to Y\) going into the
+individual spaces. Thus, there is a homotopy from \(\gamma\) to the curve which
+first does \((\xi(s),\eta(0))\), and then does \((\xi(1),\eta(s))\); in other
+words, the components of \(\gamma\) can be split apart.
+
+What does this mean in terms of the fundamental group \(\pi_1(X \times Y, (x,y))\)?
+Roughly speaking, this means that if \(\gamma\) is a loop in \(X \times Y\)
+based at \((x,y)\), then we can find another loop \(\xi \times \eta\) in \(X \times Y\)
+based at \((x,y)\) which is homotopy equivalent to \(\gamma\), but for which the
+movements in \(X\) and \(Y\) are separated. Moreover, it does not matter what sort
+of order these movements take place. Hence we may as well think of \(\xi\) as a
+loop in \(X\) based at \(x\) and \(\eta\) a loop based at \(y\) in \(Y\) and view
+the symbol \(\xi \times \eta\) as a tuple in \(\pi_1(X,x) \times \pi_1(Y,y)\).
+Indeed, with a little work, one can make precise the argument here and show
+that, as groups, we have
+\[ \pi_1(X \times y, (x,y)) \cong \pi_1(X,x) \times \pi_1(Y,y). \]
+In words, \emph{the fundamental group of the product is the product of the
+  fundamental groups}.
+
+\epoint{A Word about Base Point}
+When we defined the fundamental group, we said that the underlying set is the
+set of homotopy class of loops at some fixed point. Indeed, we do need this
+base point to make concrete sense of the group. However, a few pictures will
+convince you that changing base point does not change the group all too much.
+Indeed, so as long as the space \(X\) is \emph{path-connected}---every pair of
+points in \(X\) has a path connecting them---then the choice of base point is
+essentially superfluous.
+
+More precisely, suppose we have two points \(x_1 \in X\) and \(x_2 \in X\)
+and let \(\rho: [0,1] \to X\) be a path from \(x_1\) to \(x_2\). Then how do
+we go from an element of \(\pi_1(X,x_1)\) to \(\pi_1(X,x_2)\)? Well, an element
+in the former is a loop \(\gamma_1\) based at \(x_1\). We can obtain a loop based
+at \(x_2\) from \(\gamma_1\) as follows:
+\begin{itemize}
+  \item We start off at \(x_2\) and travel to \(x_1\) along \(\rho^{-1}\);
+  \item Then we take the loop \(\gamma_1\) at \(x_1\);
+  \item Then we travel back from \(x_1\) to \(x_2\) along \(\rho\).
+\end{itemize}
+It is not too hard to show that this map
+\[ \pi_1(X,x_1) \to \pi_1(X,x_2), \quad \gamma \mapsto \rho^{-1} \star \gamma \star \rho \]
+is an isomorphism of groups. Thus changing the base point for the fundamental
+group has the effect of conjugating the group by a path. For that reason,
+often, when we are working in path-connected spaces---which is almost always
+because I sort of like being sane---we will omit reference to the base point.
+
+\epoint{Boxes, Tori, Cylinders}
+Though simple, knowing the three facts:
+\begin{enumerate}
+  \item \(\pi_1(\RR) = 0\);
+  \item \(\pi_1(\bS^1) = \ZZ\); and
+  \item \(\pi_1(X \times Y) = \pi_1(X) \times \pi_1(Y)\);
+\end{enumerate}
+allows us to compute the fundamental group of a large class of objects. A
+box is essentially any product of \(\RR\)'s. From (i) and (iii), we have
+\[ \pi_1(\RR^n) = 0. \]
+A \(n\)-\emph{torus} \(\mathbf{T}^n\) is a product of \(n\) circles: \(\mathbf{T}^n \coloneqq (\bS^1)^n\).
+From (ii) and (iii):
+\[ \pi_1(\mathbf{T}^n) = \ZZ^n. \]
+Finally, a cylinder is some product of boxes and circles. Thus:
+\[ \pi_1(\RR^n \times \mathbf{T}^m) = \ZZ^m. \]
+\end{document}
