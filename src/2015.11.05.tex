@@ -1,0 +1,126 @@
+\documentclass{axolotl}
+\title{Triangulations and Cell Decompositions}
+\author{Raymond Cheng}
+\date{November 5, 2015}
+\begin{document}
+\maketitle
+Today we are going to step back from homotopy a bit and talk about a way of
+making a topological space a bit more manageable. Roughly speaking, we are
+going to talk about how you might take a topological space \(X\), and then
+subdivide it to easier pieces which fit together well. In the nicest case,
+these simpler pieces will be triangles---and their higher-dimensional
+analogues---and these will be joined together along their faces. Indeed, the
+old idea of triangulating a surface is to find a way of putting
+triangles in a space so that each of the triangles meet other triangles only
+at edges.
+
+\epoint{Simplices}
+In order to make sense of triangulations in general topological spaces, we need
+to make sense of the analogue of the triangle in higher dimensions. There are
+several ways to define this. One simple way is the following. Define the \emph{standard
+  \(n\)-dimensional simplex} \(\Delta^n\) to be the set
+\[ \Delta^n \coloneqq \set{x \in \RR^n | 0 \leq x_1 + \cdots + x_n \leq 1, x_i \in [0,1]}. \]
+A bit of effort, and drawing the low-dimensional examples, should convince you
+that this is the right definition of a simplex. Alternatively, \(\Delta^n\) can
+be defined as the convex hull
+\[ \Delta^n \coloneqq \Conv\set{0,e_1,\ldots,e_n} \]
+where \(e_i\) is the \(i\)\ssth~standard basis vector of \(\RR^n\).
+
+Given an arbitrary topological space \(X\), a \emph{\(n\)-simplex in \(X\)} is an
+embedding \(f: \Delta^n \to X\)---an \emph{embedding} is an continuous map which
+is a homeomorphism on its image---of the standard \(n\)-simplex into \(X\). For
+example, an \((n-1)\)-simplex in the \(n\)-simplex is given by the map
+\[ f_0: \Delta^{n-1} \to \Delta^n, \quad (x_1,\ldots,x_{n-1}) \mapsto (x_1,\ldots,x_{n-1},0). \]
+This is the \((n-1)\)-simplex on the bottom facet of \(\Delta^n\).
+
+In general, the faces of a simplex are important sub-simplices. For later use,
+given an \(n\)-simplex \(\Delta^n\), the \(i\)\ssth~face \(\Delta^{n-1}_i\) of
+\(\Delta^n\) is the \((n-1)\)-simplex in \(\Delta^n\) given by the map \[ f_i:
+  \Delta^{n-1} \to \Delta^n, \qquad (x_1,\ldots,x_{n-1}) \mapsto
+  (x_1,\ldots,x_{i-1},0,x_{i},\cdots,x_{n-1}), \] that is, the face in
+\(\Delta^n\) for which the \(i\)\ssth~coordinate is \(0\); this definition
+makes sense for \(i = 1,\ldots,n\); for \(i = 0\), define \(\Delta^{n-1}_0\) to
+be the face given by \(f_0\) above.
+
+Note that the faces discussed here are the maximal dimensional faces of the
+simplex. In general, \(k\)-dimensional faces of a simplex \(\Delta^n\) are given
+by the set of points for which exactly \(k\) coordinates are nonzero.
+
+\epoint{Triangulations}
+A \emph{triangulation} of a topological space \(X\) consists of a set of simplices
+\(\sT \coloneqq \{f_\alpha^m: \Delta^m \to X\}\) in \(X\) such that:
+\begin{enumerate}
+  \item Every point of \(x \in X\) is in some simplex \(f_i^n(\Delta^n)\);
+  \item If \(f_\alpha^m: \Delta^m \to X\) is a simplex in \(\sT\), then every
+    face \(f_{\alpha,i}^m: \Delta^{m-1} \to \Delta^m \to X\) is also in \(\sT\);
+  \item If \(f_\alpha^m: \Delta^m \to X\) and \(f_\beta^n: \Delta^n \to X\) are in
+    \(\sT\) such that they intersect, \(f_\alpha^m(\Delta^m) \cap f_\beta^n(\Delta^n) \neq \varnothing\),
+    then the intersection is a face of both \(f_\alpha^m\) and \(f_\beta^n\).
+\end{enumerate}
+A topological space equipped with a triangulation will be called a
+\emph{simpicial complex}.
+
+To keep triangulations sane, we typically impose some additional technical restrictions.
+One is that triangulations should be \emph{locally finite}: for every \(x \in X\),
+there should be an open set \(x \in U \subseteq X\) which intersects only finitely
+many of the simplices in the triangulations. If we were being extremely precise, we
+would want some condition on how the maps \(f_\alpha\) behave with respect to the
+topology on \(X\) and that of the manifold. For the time being, however, we will
+go with this fairly simple definition.
+
+\epoint{Simple Examples}
+Examples of triangulations should really be drawn out; they are certainly best
+understood through pictures. However, let's describe what the formal data of a
+triangulation of the interval \([0,1]\) might consist of. Before doing that,
+let me remark that \([0,1] = \Delta_1\), i.e. the unit interval is precisely
+the standard \(1\)-dimensional simplex. This is immediately seen when you review
+the definition of the simplex \(\Delta_1\). This observation gives a simple
+triangulation \(\sT\) consisting of:
+\begin{enumerate}
+  \item A \(1\)-simplex can be mapped in via the identity map: \(f_1^1:
+      \Delta_1 \to [0,1]\);
+  \item We now need to include the two \(0\)-dimensional faces of \(f_1^1\);
+    this means that we need the two \(0\)-simplices:
+    \begin{align*}
+      f_2^0: & \Delta_0 \to [0,1], \quad \bullet & \mapsto 0, \\
+      f_3^0: & \Delta_0 \to [0,1], \quad \bullet & \mapsto 1.
+    \end{align*}
+\end{enumerate}
+It is easy to see that the three simplices here will give a triangulation of
+\([0,1]\). Note triangulations are not unique. For instance, we can obtain
+another triangulation \(\sT'\) of \([0,1]\) by subdividing the \(1\)-simplex in
+\(\sT\) to obtain the pair of simplices
+\begin{align*}
+  g_1^1: & \Delta_1 \to \left[0,\frac{1}{2}\right], \quad g_2^1: \Delta_1 \to \left[\frac{1}{2},1\right]
+\end{align*}
+and then include the three \(0\) simplicies mapping to \(0\), \(\frac{1}{2}\)
+and \(1\). The triangulation \(\sT'\) is said to be a \textit{subdivision} of
+\(\sT\), because every simplex \(g \in \sT'\) is contained in some simplex
+\(f\) of \(\sT\)---here, we abuse notation a bit and identify a map \(g:
+  \Delta^n \to X\) with its image \(g(\Delta^n) \subset X\).
+
+Notice that if we specify the maximal simplices in the triangulations, then there
+is a unique way to complete it into a triangulation: simply include every face
+of these simplices. Thus, from now on, we will only specify the maximal
+simplices when giving a triangulation.
+
+Let \(X \coloneqq [0,1] \times [0,1]\) be the unit square in \(\RR^2\). The following
+can be taken to be maximal simplices for a triangulation of \(X\):
+\begin{align*}
+  f_1^1: \Delta^2 & \to X             & f_2^1: \Delta^2 & \to X \\
+         (x_1,x_2) & \mapsto (x_1,x_2), & (x_1,x_2) & \mapsto (1 - x_1,1 - x_2).
+\end{align*}
+If you draw a picture of what these two mean, the simplex \(f_1^1\) is the
+triangle in \(X\) with vertices \((0,0)\), \((1,0)\) and \((0,1)\), while the
+simplex \(f_2^1\) is the triangle with vertices \((1,0)\), \((0,1)\) and
+\((1,1)\). These two simplices induce a valid triangulation of \(X\) because
+they intersect along the line between \((1,0)\) and \((0,1)\), which is a face
+of both simplices.
+
+For an example for something that is not a triangulation, you can consider the
+``triangulation'' obtained by subdividing \(f_2^1\) in half by cutting it from
+\((1,1)\) to the centre of the square to obtain two smaller triangles \(g_1\)
+and \(g_2\). This will not be a triangulation---despite \(X\) being covered by
+triangles!---because the intersection between \(g_1\) and \(f_1\), say, is now
+no longer a face of \(f_1\).
+\end{document}

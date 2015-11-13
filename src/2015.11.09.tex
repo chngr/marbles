@@ -1,0 +1,101 @@
+\documentclass{axolotl}
+\title{Cell Decompositions}
+\author{Raymond Cheng}
+\date{November 9, 2015}
+\begin{document}
+\maketitle
+\epoint{Cells}
+I have spoken about triangulations of a topological space. The main idea in
+such a construction is that simplices are nice, and if we are able to divide
+the space up into a collection of simplices that fit together
+nicely---simplices only meet one another at a face---then we have a better
+chance of understanding the topology of the space. For instance, we found that
+triangulations detect whether or not the space has any holes---that is, from a
+triangulation of the space, we can compute the topological genus.
+
+However, triangulations are very special. First of all, each simplex has only
+finitely many faces, so there are only finitely many other simplices that can
+intersect any simplex in a triangulation. Moreover, the intersection condition
+that simplices intersect each other in faces is rather stringent as well.
+
+A more general sort of complex---that is, manner in which we might decompose
+a topological space into simpler objects---is then perhaps desirable. One of
+the most flexible sort of this structure is that of a \emph{CW-complex}. You
+can think of a CW-complex as being like a triangulation, but now we are allowed
+to use any space that is homeomorphic to a ball. Moreover, the intersection
+condition is much more relaxed as we no longer need things to fit together
+along a face of a simplex.
+
+Before going on to define a CW complex, let us refer to a \emph{closed
+\(n\)-cell} in a topological space \(X\) as the image of a closed ball
+\(f: \overline B^n \to X\) under some embedding \(f\). Since an \(n\)-simplex
+is homeomorphic to a closed ball, simplices in \(X\) are an example of a closed
+cell in \(X\). Likewise, we refer to the image of an open ball \(f: B^n \to X\)
+under an embedding as an \emph{open \(n\)-cell} in \(X\).
+
+\epoint{CW Complexes}
+A \emph{CW complex} is a Hausdorff topological space \(X\) along with a
+partition of \(X\) into open cells \(\varphi_\alpha^{n_\alpha}: B^{n_\alpha}
+  \to X\), where the dimensions \(n_\alpha\) may vary from cell to cell. Here,
+by partition, we mean that each cell is disjoint from every other and that every
+point of \(X\) is contained in some cell. We require these cells to fit together
+nicely in the follow two ways:
+\begin{enumerate}
+  \item For each \(n\)-dimensional cell \(\varphi_\alpha^n: B^n \to X\), there
+    exists a continuous map \(\overline\varphi: \overline B^n \to X\) such that:
+    \begin{enumerate}
+      \item The restriction of \(\overline\varphi\) to the interior \(B^n
+          \subset \overline B^n\) is a homeomorphism onto
+        \(\varphi_\alpha^n(B^n)\); and
+      \item The image of \(\partial B^n\) under \(\overline\varphi\) is contained
+        in the union of finitely many cells \(\varphi^{n_\beta}_\beta\), with
+        \(n_\beta < n\);
+    \end{enumerate}
+  \item A subset of \(X\) is closed if and only if it meets the closure of each
+    cell in a closed set.
+\end{enumerate}
+The first condition is called \emph{Closure finiteness} and the second is
+\emph{Weak topology}, hence the name CW complex. (Entertaining aside: CW
+complexes were introduced by J.H.\textbf{C}. \textbf{W}hitehead. At their time
+of introduction, some people accused Whitehead of naming these structures after
+himself.)
+
+\epoint{Explanation of the Conditions}
+The first condition in the definition of a CW complex is an analogue of the
+condition that simplices meet in faces for a triangulation. What this condition
+is saying is that the ``open cells'' in the data of a CW complex should be
+thought of as closed cells in the space. These closed cells fill up the whole
+space and only the boundary of cells intersect with other cells of the same
+dimension. When two cells intersect, there are (finitely many) lower
+dimensional cells that decompose the intersection.
+
+The second condition is a technical condition saying that the topology of the
+space \(X\) behaves well with the topology of the cells. Really, all this is
+saying is that we can reasonably understand what is closed in \(X\) just by
+looking at the restriction to each cell.
+
+\epoint{Examples}
+Let's look at some simple examples of cell-decompositions.
+\begin{enumerate}
+  \item Any triangulation is a CW decomposition.
+  \item If you take the closed ball \(\overline B^2\) in the plane and you identify all the points
+    to a single point---say the North pole---then you obtain the sphere
+    \(\bS^2\). With this, it is easy to see that a cell decomposition of
+    \(\bS^2\) is given by two cells: one is the two-dimensional cell \(B^2\)
+    mapping to everything but the North pole, i.e. to the interior of the open
+    ball from the previous construction; and there is a zero-dimensional cell
+    mapping to the North pole.
+  \item Think of a finite graph \(G\) as a topological space in \(\RR^3\),
+    where the edges do not intersect. A cell decomposition of \(G\) is given by
+    mapping a one-cell to each edge so that the boundary of each one-cell is on
+    the vertices, and then mapping a zero-cell to each vertex.
+  \item As an extension of the previous example, consider a graph \(G\) and
+    suppose you embed it into some surface \(S\)---that is, find a surface
+    \(S\) on which you can draw \(G\) so that no edges intersect one another.
+    As a simple example, \(S\) can be the sphere and then \(G\) can be a
+    drawing of any planar graph in \(S\). We say that \(G\) is
+    \emph{celluarly-embedded} if the connected components of the complement \(S
+      - G\) is a disjoint union of open discs---that is, the faces are open
+    discs.
+\end{enumerate}
+\end{document}

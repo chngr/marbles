@@ -1,0 +1,134 @@
+\documentclass{axolotl}
+\title{Maps on Surfaces}
+\author{Raymond Cheng}
+\date{2015.11.12}
+\begin{document}
+\maketitle
+\epoint{Maps} A \textbf{map} is a celluar embedding of a graph \(G\) into a
+surface \(\Sigma\). Here, \textbf{celluar embedding} means that if we take the
+complement \(\Sigma - G\) (the image of) \(G\) in \(\Sigma\), then each of the
+components are homeormorphic to open discs. In other words, if we view the
+vertices of \(G\) in \(\Sigma\) as zero-cells, the edges as one-cells, and the
+faces in the graph---this makes sense when we embed \(G\) into a surface---as
+two-cells, then this gives a cell decomposition of \(\Sigma\). Two maps are
+said to be isomorphic if there is a homeomorphism of the surface which takes
+one map to another.
+
+A (now) classical problem is to count the isomorphism classes of maps. To make
+everything finite, it is useful to ask the following specific enumerative problem:
+for a given surface of genus \(g\), how many (isomorphism classes) of maps are
+there with \(f_1\) edges? An alternate question that one can pose is: how many
+maps are there with \(f_0\) vertices, \(f_1\) edges, and \(f_2\) faces? Notice
+that, by Euler's formula
+\[ f_0 - f_1 + f_2 = \chi(\Sigma) = 2g - 2, \]
+this date determines the genus of the surface in which the map resides.
+
+The rest of today's marble will not contain much precise mathematics. Rather, I
+am going to outline several approaches that have been taking to counting maps
+on surfaces, and point out some references containing good introductions and
+discussions of the relevant techniques.
+
+\epoint{Enumeration Classically}
+As far as I know, the problem of enumerating maps was first formulated and
+considered by Tutte, with one of the classic papers being~\cite{Tut}. First,
+one does not typically count maps as described above, but rather, one
+\emph{roots} the map---this amounts to picking an orientation on an edge,
+effectively marking the edge---and count rooted maps. The advantage of rooting
+maps is that automorphisms of the maps no longer matter: one of the difficult
+things about counting maps is to find a combinatorial construction which does
+not produce maps isomorphic to others in the process.
+
+Anyway, the method which Tutte used classically was to analyze what happens when
+you contract edges. From a careful analysis of the possible situations that can
+arise, he is able to find equations which the generating function for maps (with
+certain specifications) must satisfy. Unfortunately, he is only able to give
+a solution to the map enumeration problem in a restricted class of cases.
+
+\epoint{Representation Theory of the Symmetric Group}
+A more recent method---though the paper~\cite{JV} pioneering this method is now
+as old as us!---is to use the character theory of the symmetric group, along
+with properties of symmetric functions to find a nice generating series for
+maps in arbitrary, though fixed, genus. Roughly speaking, Jackson and Visentin
+encode the problem of enumerating maps to a problem of enumerating a certain
+triple of permutations in the symmetric group. This enumeration problem depends
+only on the cycle type of the permutations involved and thus can be solved by
+looking at properties of conjugacy classes in the symmetric group
+\(\fS_n\)---recall that the symmetric group \(\fS_n\) is the group for
+permutations acting on a set of \(n\) elements. The advantage of being able
+to translate the problem in this fashion is that tools from representation
+theory, namely character theory of the symmetric group, gives succinct and
+elegant formulae for the generating series in question.
+
+This method of enumerating maps with the help of character-theoretic methods
+have been further developed to enumerate maps in \emph{locally orientable
+  surfaces} by Goulden and Jackson~\cite{GJ}. There, they work with a group
+that is slightly more complicated than the symmetric group, but still fairly
+easy to understand. Then, with techniques similar to the ones in~\cite{JV},
+they are able to obtain a formula for the generating series of maps which has
+a similar form.
+
+\epoint{Matrix Integrals}
+A fairly curious---and I think rather remarkable---manner in which maps can
+be enumerated is via matrix integrals. Think of each entry of a matrix as a
+real (or complex) coordinate and then consider integrating these variables over
+some space of matrices. For instance, we might right something like
+\[ \int_{\cH_n} e^{\tr(M^2)} dM \]
+where \(M = (x_{ij})\) is an \(n \times n\) matrix and the domain of integration
+is the space of Hermitian matrices:
+\[ \cH_n \coloneqq \set{M \in \Mat_{n \times n}\CC | M^\dagger = M^{-1}}, \]
+where \(M^\dagger\) is the conjugate transpose of the matrix. These integrals
+come up in quantum gravity and other physical problems. It turns out that the
+computation of these integrals amount to counting the number of maps with a
+certain number of properties---this is essentially the content of Wick's Theorem.
+
+I am not going to develop much more of this theory here, and instead point
+you toward two accessible references. The first is a friendly survey~\cite{Zv} by Zvonkin
+and the second is a chapter in some book~\cite{Bo}. Finally, a resource that has
+more than enough information is the book~\cite{LZ}.
+
+\epoint{Closing}
+I have mainly provided references in this Marble. Part of the reason of this is
+that I do not recall enough off hand to rail off an article quickly. Another is
+that there is plenty to explore and learn in this topic. Moreover, as you
+quickly find out with a glance at the table of contents of~\cite{LZ}, there are
+many interesting connections in this topic to other subjects. Thus this might
+be a nice project to continue to work on and, hopefully, the papers cited in
+this Marble will provide you with a starting point for some project.
+
+\begin{thebibliography}{9}
+  \bibitem[Bo]{Bo}
+    J. Bouttier,
+    ``Enumeration of maps''.
+    \url{http://arxiv.org/pdf/1104.3003.pdf}.
+  \bibitem[GJ]{GJ}
+    I. P. Goulden and D. M. Jackson,
+    \emph{Maps in Locally Orientable Surfaces and Integrals Over Real Symmetric Matrices},
+    Canadian J. Math,
+
+  \bibitem[JV]{JV}
+    D. M. Jackson and T. I. Visentin,
+    \emph{A character-theoretic approach to embeddings of rooted maps in an orientable surface of given genus.}
+    Trans. Amer. Math. Soc.
+    \textbf{322} (1990), no. 1, 343--363.
+
+  \bibitem[LZ]{LZ}
+    S. K. Lando and A. K. Zvonkin,
+    \emph{Graphs on Surfaces and their Applications},
+    Encylop\ae dia of Mathematical Sciences \textbf{141},
+    Springer-Verlag, 2004, 455pp.
+
+  \bibitem[Tu]{Tut}
+    W. T. Tutte,
+    \emph{On the enumeration of planar maps},
+    Bull. Amer. Math. Soc. 74 (1968),
+    no. \textbf{1}, 64--74.
+    \textbf{48} (1996), 569--584.
+
+  \bibitem[Zv]{Zv}
+    A. K. Zvonkin,
+    \emph{Matrix integrals and map enumeration: An accessible introduction},
+    Mathematical and Computer Modelling
+    \textbf{26}, (1997),
+    no. 8–10, 281–-304.
+\end{thebibliography}
+\end{document}
